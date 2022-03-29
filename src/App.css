@@ -1,0 +1,462 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
+  scroll-behavior: smooth;
+}
+
+a {
+  text-decoration: none;
+  color:unset;
+}
+
+body {  
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  max-width: 100vw;
+}
+.sign-in, .sign-up {
+  height: 100vh;
+  display: grid;
+  place-content: center;
+}
+.logo{
+  align-content: flex-end;
+  margin-bottom: 0.7rem;
+  text-align: center;
+  font-size: 50px;
+  font-family: 'Noto Serif JP', serif;
+  background: -webkit-linear-gradient(rgba(156, 72, 156, 0.575), rgba(13, 9, 44, 0.712) );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.sign-in h2, .sign-up h2{
+  margin-bottom: 5rem;
+  text-align: center;
+  background: -webkit-linear-gradient(rgba(13, 9, 44, 0.712),rgba(133, 61, 133, 0.575) );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.container {
+  border-radius: 2%;
+  width: 330px;
+  height: auto;
+  display: grid;
+  grid-gap: 1rem;
+  box-shadow: -10px 10px 80px -20px rgb(129, 255, 255), 10px -10px 80px -20px rgb(206, 98, 206);
+  padding: 1.5rem;
+  align-content: start;
+}
+
+.container h1{
+  text-align: center;
+  background: -webkit-linear-gradient(rgba(223, 19, 223, 0.575), rgba(61, 40, 248, 0.712) );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.container span, p{
+  font-size: 12px;
+  color: rgb(77, 76, 76);
+}
+
+.container p{
+  text-align: center;
+}
+
+.container p:hover{
+  color: rgba(223, 19, 223, 0.575);
+  cursor: pointer;
+}
+
+.container input{
+  border: none;
+  border-bottom: solid rgb(202, 200, 200) 1px;
+  padding: 15px 0px;
+  width: 270px ;
+}
+
+.container input:focus {
+  outline: none;
+}
+
+.container button {
+  background: linear-gradient(rgba(223, 19, 223, 0.575), rgba(61, 40, 248, 0.712) );
+  color: white;
+  border: none;
+  border-radius: 25px;
+  padding: 10px;
+  width: 270px ;
+  cursor: pointer;
+}
+
+.hoxtify-app {
+  display: grid;
+  grid-template-rows: 5rem 1fr;
+  min-height: 100vh;
+  min-width: 100vw;
+}
+
+.header {
+  display: grid;
+  grid-template-columns: 14rem 1fr 10rem;
+  height: 5rem;
+  position: sticky;
+  top: 0;
+  background-color: white;
+}
+
+.hoxtify-app .main-wrapper {
+  display: grid;
+  grid-template-columns: 14rem 1fr;
+}
+
+
+.header .logo {
+  display: grid;
+  justify-content: flex-start;
+  font-size: 37px;
+  margin: 0;
+  padding-left: 1rem;
+}
+
+.header h2 {
+  display: grid;
+  justify-content: flex-start;
+  font-size: 17px;
+  padding-left: 1rem;
+  margin-bottom: 5rem;
+  text-align: center;
+  background: -webkit-linear-gradient(rgba(13, 9, 44, 0.712),rgba(133, 61, 133, 0.575) );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.header .search-bar {
+  display: grid;
+  grid-auto-flow: column;
+  align-content: center;
+  justify-content: flex-start;
+  height: 5rem;
+  border-bottom: solid rgb(202, 200, 200) 1px;
+  border-left: solid rgb(202, 200, 200) 1px;
+}
+.topbar-search-icon{
+  margin-left: 3rem;
+  margin-top: 1rem;
+}
+.search-bar input {
+  margin-left: 0.5rem;
+  border: none;
+  padding: 15px 0px;
+  width: 30rem;
+  font-size: 15px;
+  border-bottom: solid rgb(202, 200, 200) 1px;
+  transition: .3s;
+}
+.search-bar input:focus {
+  outline: none;
+  border-bottom: solid rgba(223, 19, 223, 0.575) 1px;
+  color: rgba(223, 19, 223, 0.575);
+}
+
+.header .header-profile {
+  display: grid;
+  grid-auto-flow: column;
+  align-items: center;
+  justify-items: center;
+  height: 5rem;
+  border-bottom: solid rgb(202, 200, 200) 1px;
+}
+
+.header .header-profile img {
+  border-radius: 50px;
+}
+
+.header .header-profile span {
+  color: #191919;
+  font-size: 18px;
+  font-weight: 600;
+  transition: .2s;
+}
+.header .header-profile span:hover {
+  cursor: pointer;
+  color: rgba(133, 61, 133, 0.575);
+}
+.header .header-profile{
+  cursor: pointer;
+}
+
+.sidebar {
+  display: grid;
+  align-content: center;
+  grid-gap: 1rem ;
+  position: sticky;
+  top: 5rem;
+  background-color: white;
+  max-height: 100vh;
+}
+
+.sidebar h1 {
+  font-size: 22px;
+  padding-left: 1rem;
+  color: #191919;
+  transition: .3s;
+}
+
+.sidebar h1:hover, .sidebar h2:hover {
+  cursor: pointer;
+  color: rgba(133, 61, 133, 0.575);
+  border-left: solid 5px rgba(133, 61, 133, 0.575);
+}
+
+.sidebar h2 {
+  font-size: 16px;
+  padding-left: 2.2rem;
+  color: #52525D;
+  font-weight: 100;
+  transition: .3s;
+}
+
+.pick-favorites {
+  display: grid;
+  min-height: 100vh;
+  min-width: 100vw;
+  align-content: center;
+  justify-items: center;
+  background-color: rgba(6, 10, 51, 0.89);
+  grid-gap: 2rem;
+}
+
+.pick-favorites h1 {
+  text-transform: uppercase;
+  /* margin-bottom: 0.7rem; */
+  text-align: center;
+  font-size: 50px;
+  font-weight: 800;
+  font-family: 'Noto Serif JP', serif;
+  color: rgba(255, 0, 255, 0.575);
+  text-shadow: 2px 2px 17px rgba(255, 0, 255, 0.582);
+  /* padding-top: 2rem; */
+}
+
+.pick-favorites h2 {
+  /* margin-bottom: 0.7rem; */
+  text-align: center;
+  font-size: 40px;
+  font-weight: 800;
+  font-family: 'Noto Serif JP', serif;
+  color: rgba(255, 0, 255, 0.575);
+  text-shadow: 2px 2px 17px rgba(255, 0, 255, 0.582);
+}
+
+.pick-favorites ul {
+  list-style-type: none;
+}
+
+.pick-favorites li {
+  display: inline-block;
+}
+
+.pick-favorites input[type="checkbox"]{
+  display: none;
+}
+
+.pick-favorites label {
+  padding: 10px;
+  display: block;
+  position: relative;
+  margin: 10px;
+  cursor: pointer;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.pick-favorites label::before {
+  background-color: white;
+  color: white;
+  content: " ";
+  display: block;
+  border-radius: 50%;
+  border: 1px solid grey;
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  width: 25px;
+  height: 25px;
+  text-align: center;
+  line-height: 28px;
+  transition-duration: 0.4s;
+  transform: scale(0);
+}
+
+.pick-favorites label img {
+  height: 300px;
+  width: 300px;
+  transition-duration: 0.2s;
+  transform-origin: 50% 50%;
+}
+
+
+.pick-favorites :checked+label::before {
+  content: "✓";
+  background-color: rgba(255, 0, 255, 0.582);
+  transform: scale(1);
+}
+
+.pick-favorites :checked+label img {
+  transform: scale(0.9);
+  box-shadow: 0 0 5px #333;
+  z-index: -1;
+  box-shadow: 0px 0px 40px rgba(255, 0, 255, 0.575);
+
+}
+
+.pick-favorites button {
+  background-color: rgba(255, 0, 255, 0.575);
+  color: white;
+  border: none;
+  border-radius: 25px;
+  padding: 10px;
+  width: 270px ;
+  cursor: pointer;
+  text-align: center;
+  transition: .5s;
+}
+
+.pick-favorites button:hover {
+  box-shadow: 0px 0px 17px rgba(255, 0, 255, 0.575);
+}
+
+.music-card-wrapper {
+  padding-top: 1.7rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  justify-items: start;
+  grid-gap: 1.4rem;
+}
+
+.podcasts-card-wrapper {
+  padding-top: 1.7rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  justify-items: start;
+  grid-gap: 2rem;
+}
+
+.song-details-content {
+  width: 100vw;
+  min-height: 100vh;
+}
+
+.song-content-main-wrapper {
+  display: grid;
+  grid-template-columns: 14rem 1fr;
+}
+
+.song-content-wrapper {
+  display: grid;
+  justify-content: center;
+  align-content: flex-start;
+  gap: 2rem;
+}
+
+.song-content-wrapper button {
+  background-color: #f50;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  padding: 10px;
+  width: 270px ;
+  cursor: pointer;
+  text-align: center;
+  transition: .5s;
+}
+
+.song-content-wrapper button:hover {
+  box-shadow: 0px 0px 17px #f50;
+}
+
+.artist-card-wrapper {
+  padding-top: 1.7rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  justify-items: start;
+  grid-gap: 1.4rem;
+}
+
+.modal-wrapper {
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.185);
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 15;
+  display: grid;
+  place-content: center;
+}
+
+.modal {
+  background-color: white;
+  color: black;
+  padding: 1rem;
+  display: grid;
+  position: relative;
+  place-items: center;
+  gap: 1rem;
+}
+
+.new-user {
+  display: grid;
+  gap: 5px;
+}
+
+.new-user input {
+  border: 1px solid black;
+  display: grid;
+  place-items: center;
+}
+
+.new-user button {
+  background-color: #f50;
+  display: grid;
+  place-self: center;
+  color: white;
+  border-radius: 3px;
+  padding: 0.5rem 1rem;
+  font-weight: 500;
+}
+
+.close-modal {
+  position: absolute;
+  right: -10px;
+  top: -10px;
+  background-color: #f50;
+  border-radius: 50%;
+  color: white;
+  width: 35px;
+  height: 35px;
+  display: grid;
+  place-content: center;
+}
+
+.playlist-wrapper {
+  cursor: pointer;
+  display: grid; 
+  grid-auto-flow: column;
+  align-items: center;
+  justify-content: start;
+  padding: 1rem;
+  background-color: rgba(0, 0, 0, 0.185);
+  gap: .5rem;
+}
+.playlist-wrapper:hover {
+  background-color: rgb(199, 199, 199);
+}
