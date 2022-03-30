@@ -13,7 +13,7 @@ export function FavoritesPage() {
             .map((checkbox) => Number(checkbox.value));
             console.log(selectedGenres);
         //update server
-        fetch(`http://localhost:3001/users/${user.id}`, {
+        fetch(`http://localhost:3001/users/${user?.id}`, {
             method: 'PATCH',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ favoriteGenres: selectedGenres })
@@ -22,7 +22,7 @@ export function FavoritesPage() {
         })
     }
   
-  if(user === null) return <div style={{backgroundcolor: "rgba(6, 10, 51, 0.89)"} }><h1>loading</h1></div>
+  if(user === null) return <div style={{backgroundColor: "rgba(6, 10, 51, 0.89)"} }><h1>loading</h1></div>
 
     return (
         <section className="pick-favorites">
@@ -35,7 +35,7 @@ export function FavoritesPage() {
                             <li key={genre.id} >
                                 <input className="input" onChange={handleOnChange} type="checkbox" value={genre.id} id={`cb${genre.id}`} />
                                 <label htmlFor={`cb${genre.id}`}>
-                                    <img src={genre.pic} />
+                                    <img src={genre.image} />
                                 </label>
                             </li>
                         )

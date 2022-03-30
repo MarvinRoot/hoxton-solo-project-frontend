@@ -6,7 +6,7 @@ export function SignIn() {
     const navigate = useNavigate()
     const {user, users, updateUser} = useStore()
 
-    function signInUser(email, password){
+    function signInUser(email: string, password: string){
         for(const user of users){
             if(user.email === email && user.password === password){
                 updateUser(user)

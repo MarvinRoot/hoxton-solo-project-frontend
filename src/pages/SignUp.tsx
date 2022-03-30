@@ -5,7 +5,7 @@ export function SignUp() {
     const navigate = useNavigate()
     const { users, updateUsers, updateUser } = useStore()
 
-    function addUser(usernamee, eemail, passsword) {
+    function addUser(usernamee: string, eemail: string, passsword: string) {
         //update state
         fetch('http://localhost:3001/users', {
             method: 'POST',

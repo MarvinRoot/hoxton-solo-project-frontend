@@ -14,8 +14,8 @@ export function Header() {
                 <input onChange={(e) => updateSearch(e.target.value)} name="search" type="search" placeholder="Search" />
             </div>
             <div onClick={()=>navigate('/profile')} className='header-profile'>
-                <img src={user.profilePic} alt="profile pic" />
-                <span>{user.username}</span>
+                <img src={user?.profilePic} alt="profile pic" />
+                <span>{user?.username}</span>
             </div>
         </section>
     )
