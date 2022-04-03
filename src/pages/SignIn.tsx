@@ -4,28 +4,45 @@ import { useStore } from "./components/store"
 
 export function SignIn() {
     const navigate = useNavigate()
-    const {user, users, updateUser} = useStore()
+    const { user, updateUser } = useStore()
 
-    function signInUser(email: string, password: string){
-        for(const user of users){
-            if(user.email === email && user.password === password){
-                updateUser(user)
-            }
-        }
+
+    function signInUser(email: string, password: string) {
+        // for(const user of users){
+        //     if(user.email === email && user.password === password){
+        //         updateUser(user)
+        //     }
+        // }
+        fetch('http://localhost:3001/sign-in', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ email, password })
+        }).then(resp => resp.json())
+            .then(data => {
+                if (data.error) {
+                    alert(data.error)
+                } else {
+                    localStorage.token = data.token
+                    updateUser(data.user)
+                }
+            })
     }
-    useEffect(()=>{
-        if(user) navigate('/main')
+    useEffect(() => {
+        if (user) navigate('/main')
     }, [user])
-    
+
     return (
         <div className="sign-in">
             <h1 className="logo">Hoxtify</h1>
             <h2>Your daily music dose</h2>
-            <form onSubmit={(e)=> {
-                        e.preventDefault()
-                        signInUser(e.target.email.value, e.target.password.value)
-                        
-                    }}>
+            <form onSubmit={(e) => {
+                e.preventDefault()
+                //@ts-ignore
+                signInUser(e.target.email.value, e.target.password.value)
+
+            }}>
                 <div className="container">
                     <h1>Hey there!</h1>
 
