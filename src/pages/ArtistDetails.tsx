@@ -7,18 +7,35 @@ import { Artist } from "./components/types"
 
 export function ArtistDetails() {
     const params = useParams()
-    const { artists, user, updateUser, artist, updateArtist } = useStore()
+    const { artists, user, artist, updateArtist } = useStore()
 
-    function addToFavorites(artist: Artist) {
-        let newFavArtists = JSON.parse(JSON.stringify(user?.favoriteArtists))
-        if (user?.favoriteArtists.find(artistt => artistt === artist.id)) return null
-        else newFavArtists.push(Number(artist.id))
+    // function addToFavorites(artist: Artist) {
+    //     let newFavArtists = JSON.parse(JSON.stringify(user?.favoriteArtists))
+    //     if (user?.favoriteArtists.find(artistt => artistt === artist.id)) return null
+    //     else newFavArtists.push(Number(artist.id))
 
-        fetch(`http://localhost:3001/users/${user?.id}`, {
-            method: 'PATCH',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ favoriteArtists: newFavArtists })
-        }).then(resp => resp.json()).then(user => updateUser(user))
+    //     fetch(`http://localhost:3001/users/${user?.id}`, {
+    //         method: 'PATCH',
+    //         headers: { 'Content-Type': 'application/json' },
+    //         body: JSON.stringify({ favoriteArtists: newFavArtists })
+    //     }).then(resp => resp.json()).then(user => updateUser(user))
+    // }
+
+    function addToFavorites(userId: number | undefined, artistId: number){
+        fetch(`http://localhost:3001/favoriteArtists`, {
+            method: 'POST',
+            headers: { 
+                'Content-Type': 'application/json',
+                Authorization: localStorage.token
+            },
+            body: JSON.stringify({ userId, artistId })
+        }).then(resp => resp.json()).then(data => {
+            if (data.error) {
+                alert(data.error)
+            }else {
+                alert(data.message)
+            }
+        })
     }
     useEffect(() => {
         fetch(`http://localhost:3001/artists/${params.artistId}`).then(resp => resp.json())
@@ -46,7 +63,7 @@ export function ArtistDetails() {
                         <h1 style={{ color: "#f40", fontSize: "55px", fontWeight: "700" }}>{artist.name}</h1>
                     </div>
                     <div style={{ display: "grid", gridAutoFlow: "column", justifyContent: "center", gap: "2rem", marginBottom: "2rem" }}>
-                        <button onClick={()=>addToFavorites(artist)}>Add to favorite artists</button>
+                        <button onClick={()=>addToFavorites(user?.id, artist.id)}>Add to favorite artists</button>
                     </div>
                     <h1 style={{ color: "#191919", fontSize: "28px", fontWeight: "600" }}>Similar Artists</h1>
                     <div className="artist-card-wrapper">

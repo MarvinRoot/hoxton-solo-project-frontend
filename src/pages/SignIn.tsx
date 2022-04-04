@@ -4,7 +4,7 @@ import { useStore } from "./components/store"
 
 export function SignIn() {
     const navigate = useNavigate()
-    const { user, updateUser } = useStore()
+    const { user, users, updateUser } = useStore()
 
 
     function signInUser(email: string, password: string) {

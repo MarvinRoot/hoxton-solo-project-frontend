@@ -3,19 +3,20 @@ import { useStore } from "./components/store"
 
 export function SignUp() {
     const navigate = useNavigate()
-    const { updateUser } = useStore()
+    const { updateUser, users, updateUsers } = useStore()
 
     function addUser(username: string, email: string, password: string) {
         //update state
         // fetch('http://localhost:3001/users', {
         //     method: 'POST',
         //     headers: { 'Content-Type': 'application/json' },
-        //     body: JSON.stringify({ username: usernamee, email: eemail, password: passsword, profilePic: `https://avatars.dicebear.com/api/avataaars/${usernamee}.svg`, favoriteGenres: [], favoriteSongs: [], playlists: [], favoriteArtists: [] })
+        //     body: JSON.stringify({ username: username, email: email, password: password, profilePic: `https://avatars.dicebear.com/api/avataaars/${username}.svg`, favoriteGenres: [], favoriteSongs: [], playlists: [], favoriteArtists: [] })
         // }).then(resp => resp.json()).then(user => {
         //     let updatedUsers = JSON.parse(JSON.stringify(users))
         //     updatedUsers.push(user)
         //     updateUsers(updatedUsers)
         //     updateUser(user)
+        //     navigate('/pick-favorites')
         // })
 
         fetch('http://localhost:3001/sign-up', {

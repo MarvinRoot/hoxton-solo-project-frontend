@@ -11,8 +11,26 @@ import { ArtistDetails } from './pages/ArtistDetails'
 import { ProfilePage } from './pages/ProfilePage'
 
 function App() {
-  const {updateUsers, updateGenres, updateSongs, updateArtists} = useStore()
+  const {updateUsers, updateUser, updateGenres, updateSongs, updateArtists} = useStore()
  
+  function validateUser() {
+    if (localStorage.token) {
+      fetch('http://localhost:3001/validate', {
+        headers: {
+          Authorization: localStorage.token
+        }
+      })
+        .then((resp) => resp.json())
+        .then((data) => {
+          if (data.error) {
+            alert(data.error.message);
+          } else {
+            updateUser(data);
+          }
+        });
+    }
+  }
+
   useEffect(() => {
     fetch('http://localhost:3001/users').then(resp => resp.json())
     .then(usersFromServer => updateUsers(usersFromServer))
@@ -25,6 +43,8 @@ function App() {
 
     fetch('http://localhost:3001/artists').then(resp => resp.json())
     .then(artistsFromServer => updateArtists(artistsFromServer))
+
+    validateUser()
   }, [])
 
   return (
