@@ -3,22 +3,39 @@ import { useStore } from "../store"
 
 export default function AddSongModal() {
 
-    const { updateModal, user, song, updateUser, updatePlaylists } = useStore()
+    const { updateModal, user, song, updateUser } = useStore()
 
-    function handleOnClick(playlist, playlistSongs) {
-        playlistSongs.push(song)
-        playlist.songs = playlistSongs
+    function handleOnClick(userId: number, playlistId: number, songId: number | undefined) {
+        // playlistSongs.push(song)
+        // playlist.songs = playlistSongs
 
-        let updatedPlaylists = user.playlists.filter(playlisst => playlisst.id !== playlist.id)
-        updatedPlaylists.push(playlist)
-        console.log(updatedPlaylists)
-        updatePlaylists(updatedPlaylists)
+        // let updatedPlaylists = user.playlists.filter(playlisst => playlisst.id !== playlist.id)
+        // updatedPlaylists.push(playlist)
+        // console.log(updatedPlaylists)
+        // updatePlaylists(updatedPlaylists)
 
-        fetch(`http://localhost:3001/users/${user.id}`, {
-            method: 'PATCH',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ playlists: updatedPlaylists })
-        }).then(resp => resp.json()).then(user => updateUser(user))
+        // fetch(`http://localhost:3001/users/${user.id}`, {
+        //     method: 'PATCH',
+        //     headers: { 'Content-Type': 'application/json' },
+        //     body: JSON.stringify({ playlists: updatedPlaylists })
+        // }).then(resp => resp.json()).then(user => updateUser(user))
+
+        fetch(`http://localhost:3001/playlistSongs`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: localStorage.token
+            },
+            body: JSON.stringify({ userId, playlistId, songId })
+        }).then(resp => resp.json()).then(data => {
+            if (data.error) {
+                alert(data.error)
+            } else {
+                alert(data.message)
+                updateUser(data.user)
+            }
+        })
+        updateModal('')
     }
 
     return (
@@ -29,10 +46,10 @@ export default function AddSongModal() {
                 </button>
                 <h2>Pick a playlist to add the song</h2>
                 <div style={{ display: "grid", gap: ".5rem", width: "100%" }}>
-                    {user.playlists.map(playlist => {
+                    {user?.playlists.map(playlist => {
                         return (
                             <div onClick={() => {
-                                handleOnClick(playlist, playlist.songs)
+                                handleOnClick(user.id, playlist.id, song?.id)
                             }} className="playlist-wrapper" key={playlist.id} >
                                 <button style={{ cursor: "pointer", borderRadius: "50px", border: "none", padding: ".5rem 1rem", fontSize: "20px", color: "white", backgroundColor: "#f50" }}> + </button>
                                 <h4>{playlist.title}</h4>

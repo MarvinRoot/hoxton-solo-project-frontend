@@ -4,9 +4,9 @@ export type User = {
     email: string,
     password: string,
     profilePic: string,
-    favoriteGenres: number[],
-    favoriteSongs: number[],
-    favoriteArtists: number[],
+    favoriteGenres: favoriteGenres[],
+    favoriteSongs: favoriteSongs[],
+    favoriteArtists: favoriteArtists[],
     playlists: Playlist[]
 }
 
@@ -20,7 +20,7 @@ export type Song = {
     id: number,
     genreId: number,
     title: string,
-    artist: string,
+    artistsSongs: any,
     src: string,
     image: string
 }
@@ -35,5 +35,29 @@ export type Artist = {
 export type Playlist = {
     id: number,
     title: string,
-    songs: Song[]
+    playlistSongs: Song[]
+}
+
+export type playlistSongs = {
+    id: number,
+    playlistId: number,
+    songId: number
+}
+
+export type favoriteSongs = {
+    id: number,
+    userId: number,
+    songId: number
+}
+
+export type favoriteArtists = {
+    id: number,
+    userId: number,
+    artistId: number
+}
+
+export type favoriteGenres = {
+    id: number,
+    userId: number,
+    genreId: number
 }

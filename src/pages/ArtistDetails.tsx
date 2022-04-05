@@ -1,5 +1,5 @@
-import { useEffect,useState } from "react"
-import { Link,useParams } from "react-router-dom"
+import { useEffect, useState } from "react"
+import { Link, useParams } from "react-router-dom"
 import { Header } from "./components/Header"
 import { Sidebar } from "./components/Sidebar"
 import { useStore } from "./components/store"
@@ -21,10 +21,10 @@ export function ArtistDetails() {
     //     }).then(resp => resp.json()).then(user => updateUser(user))
     // }
 
-    function addToFavorites(userId: number | undefined, artistId: number){
+    function addToFavorites(userId: number | undefined, artistId: number) {
         fetch(`http://localhost:3001/favoriteArtists`, {
             method: 'POST',
-            headers: { 
+            headers: {
                 'Content-Type': 'application/json',
                 Authorization: localStorage.token
             },
@@ -32,7 +32,7 @@ export function ArtistDetails() {
         }).then(resp => resp.json()).then(data => {
             if (data.error) {
                 alert(data.error)
-            }else {
+            } else {
                 alert(data.message)
             }
         })
@@ -58,12 +58,12 @@ export function ArtistDetails() {
             <div className="song-content-main-wrapper">
                 <Sidebar />
                 <div className="song-content-wrapper">
-                    <div style={{ display: "grid", width: "900px", gridTemplateColumns: "500px 1fr", alignItems: "center",  gap: "3rem", marginTop: "2rem" }}>
+                    <div style={{ display: "grid", width: "900px", gridTemplateColumns: "500px 1fr", alignItems: "center", gap: "3rem", marginTop: "2rem" }}>
                         <img style={{ borderRadius: "50%", width: "500px" }} src={artist.image} alt="" />
                         <h1 style={{ color: "#f40", fontSize: "55px", fontWeight: "700" }}>{artist.name}</h1>
                     </div>
                     <div style={{ display: "grid", gridAutoFlow: "column", justifyContent: "center", gap: "2rem", marginBottom: "2rem" }}>
-                        <button onClick={()=>addToFavorites(user?.id, artist.id)}>Add to favorite artists</button>
+                        <button onClick={() => addToFavorites(user?.id, artist.id)}>Add to favorite artists</button>
                     </div>
                     <h1 style={{ color: "#191919", fontSize: "28px", fontWeight: "600" }}>Similar Artists</h1>
                     <div className="artist-card-wrapper">

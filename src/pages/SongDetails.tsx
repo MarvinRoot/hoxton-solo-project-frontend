@@ -10,26 +10,44 @@ export function SongDetails() {
     const params = useParams()
     const { artists, user, updateUser, artist, updateArtist, updateModal, songs, song, updateSong } = useStore()
 
-    function addToFavorites(song: Song) {
+    // function addToFavorites(song: Song) {
 
-        let newFavSongs = JSON.parse(JSON.stringify(user?.favoriteSongs))
-        if (user?.favoriteSongs.find(songg => songg === song.id)) return null
-        else newFavSongs.push(Number(song.id))
+    //     let newFavSongs = JSON.parse(JSON.stringify(user?.favoriteSongs))
+    //     if (user?.favoriteSongs.find(songg => songg === song.id)) return null
+    //     else newFavSongs.push(Number(song.id))
 
-        fetch(`http://localhost:3001/users/${user?.id}`, {
-            method: 'PATCH',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ favoriteSongs: newFavSongs })
-        }).then(resp => resp.json()).then(user => updateUser(user))
+    //     fetch(`http://localhost:3001/users/${user?.id}`, {
+    //         method: 'PATCH',
+    //         headers: { 'Content-Type': 'application/json' },
+    //         body: JSON.stringify({ favoriteSongs: newFavSongs })
+    //     }).then(resp => resp.json()).then(user => updateUser(user))
+    // }
+
+    function addToFavorites(userId: number | undefined, songId: number) {
+        fetch(`http://localhost:3001/favoriteSongs`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: localStorage.token
+            },
+            body: JSON.stringify({ userId, songId })
+        }).then(resp => resp.json()).then(data => {
+            if (data.error) {
+                alert(data.error)
+            } else alert(data.message)
+        })
     }
 
     useEffect(() => {
         fetch(`http://localhost:3001/songs/${params.songId}`).then(resp => resp.json())
-            .then(songFromServer => {
-                updateSong(songFromServer)
-                let songArtist = artists.filter((artist: Artist) => songFromServer.artist === artist.name)
-                songArtist = songArtist[0]
-                updateArtist(songArtist)
+            .then(data => {
+                if (data.error) {
+                    alert(data.error)
+                } else {
+                    console.log(data)
+                    updateSong(data)
+                    updateArtist(data.artistsSongs[0])
+                }
             })
     }, [])
 
@@ -50,25 +68,25 @@ export function SongDetails() {
                         <Link to={`/artist/${artist.id}`}><img style={{ borderRadius: "50%", width: "300px" }} src={artist.image} alt="" /></Link>
                     </div>
                     <div style={{ display: "grid", gridAutoFlow: "column", justifyContent: "center", gap: "2rem", marginBottom: "2rem" }}>
-                        <button onClick={() => addToFavorites(song)}>Add to favorite songs</button>
+                        <button onClick={() => addToFavorites(user?.id, song.id)}>Add to favorite songs</button>
                         <button onClick={() => updateModal('add-song')}>Add to playlist</button>
                     </div>
                     <h1 style={{ color: "#191919", fontSize: "28px", fontWeight: "700" }}>Similar Music</h1>
                     <div className="music-card-wrapper" >
-                        {songs.filter(songg => songg.genreId === song.genreId && songg.id !== song.id)
+                        {songs.filter(songg => song.genreId === songg.genreId && songg.id !== song.id)
                             .map(songg => {
                                 return (
-                                    <Link key={song.id} to={`/song/${song.id}`}>
+                                    <Link key={songg.id} to={`/song/${songg.id}`}>
                                         <div className="music-card" >
                                             <img style={{ width: "300px", paddingBottom: ".5rem", borderRadius: "20px" }} src={songg.image} alt="" />
                                             <h2 style={{ color: "#191919", fontSize: "18px", fontWeight: "200" }}>{songg.title}</h2>
-                                            <h3 style={{ color: "#52525D", fontSize: "13px", fontWeight: "200" }}>{songg.artist}</h3>
+                                            <h3 style={{ color: "#52525D", fontSize: "13px", fontWeight: "200" }}>{artist.name}</h3>
                                         </div>
                                     </Link>
                                 )
                             })}
                     </div>
-                    
+
                     <h1 style={{ color: "#191919", fontSize: "28px", fontWeight: "700" }}>Similar Artists</h1>
                     <div className="artist-card-wrapper">
 

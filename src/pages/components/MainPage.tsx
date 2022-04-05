@@ -3,6 +3,11 @@ import { useStore } from "./store"
 
 export function MainPage() {
     const { songs, artists, user, search } = useStore()
+    // not fetched yet
+    if (user === null) return <p>Loading...</p>
+
+    let genresIds = user?.favoriteGenres.map(genre => genre.genreId)
+    console.log(genresIds);
 
     return (
 
@@ -10,14 +15,14 @@ export function MainPage() {
             <div id="music" className="music-tracks" style={{ marginTop: "2rem" }}>
                 <h1 style={{ color: "#191919", fontSize: "28px", fontWeight: "700" }}>Music For You</h1>
                 <div className="music-card-wrapper" >
-                    {songs.filter(song => user?.favoriteGenres.includes(song.genreId))
+                    {songs.filter(song => genresIds.includes(song.genreId))
                         .map(song => {
                             return (
                                 <Link key={song.id} to={`/song/${song.id}`}>
                                     <div className="music-card" >
                                         <img style={{ width: "300px", paddingBottom: ".5rem", borderRadius: "20px" }} src={song.image} alt="" />
                                         <h2 style={{ color: "#191919", fontSize: "18px", fontWeight: "200" }}>{song.title}</h2>
-                                        <h3 style={{ color: "#52525D", fontSize: "13px", fontWeight: "200" }}>{song.artist}</h3>
+                                        <h3 style={{ color: "#52525D", fontSize: "13px", fontWeight: "200" }}>{song.artistsSongs[0].name}</h3>
                                     </div>
                                 </Link>
                             )

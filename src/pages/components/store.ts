@@ -11,7 +11,7 @@ type appState = {
     artist: Artist | null
     modal: string
     song: Song | null
-    playlists: Playlist[]
+    // playlists: Playlist[]
     updateUsers: (newUsers: User[]) => void
     updateUser: (newUser: User) => void
     updateSearch: (newSearch: string) => void
@@ -21,7 +21,7 @@ type appState = {
     updateArtist: (newArtist: Artist) => void
     updateModal: (newModal: string) => void
     updateSong: (newSong: Song) => void
-    updatePlaylists: (newPlaylists: Playlist[]) => void
+    // updatePlaylists: (newPlaylists: Playlist[]) => void
 }
 
 export const useStore = create<appState>((set) => ({
@@ -43,6 +43,6 @@ export const useStore = create<appState>((set) => ({
     updateArtists: newArtists => set({ artists: newArtists }),
     updateArtist: newArtist => set({ artist: newArtist }),
     updateModal: newModal => set({ modal: newModal }),
-    updateSong: newSong => set({ song: newSong }),
-    updatePlaylists: newPlaylists => set({ playlists: newPlaylists })
+    updateSong: newSong => set({ song: newSong })
+    // updatePlaylists: newPlaylists => set({ playlists: newPlaylists })
 }))
