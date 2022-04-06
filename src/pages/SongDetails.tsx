@@ -57,6 +57,24 @@ export function SongDetails() {
         })
     }
 
+    function addComment(userId: number | undefined, songId: number, content: string) {
+        fetch('http://localhost:3001/comments', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: localStorage.token
+            },
+            body: JSON.stringify({ userId, songId, content })
+        }).then(resp => resp.json()).then(data => {
+            if (data.error) {
+                alert(data.error)
+            } else {
+                updateUser(data.userrr)
+                updateSong(data.song)
+            }
+        })
+    }
+
     useEffect(() => {
         fetch(`http://localhost:3001/songs/${params.songId}`).then(resp => resp.json())
             .then(data => {
@@ -135,6 +153,27 @@ export function SongDetails() {
                                 )
                             })}
                     </div>
+                    <div className="comments-section">
+                        <h1>Comments Section</h1>
+                        <form onSubmit={(e) => {
+                            e.preventDefault()
+                            addComment(user?.id, song.id, e.target.comment.value)
+                            e.target.reset()
+                        }} style={{ display: "grid", gridAutoFlow: "row", gridGap: "1rem" }}>
+                            <textarea style={{ width: "500px", padding: "3px" }} rows={3} name="comment" required />
+                            <button type="submit">Post comment</button>
+                        </form>
+                        {song.comments.map(comment => {
+                            return (
+                                <div>
+                                    <img style={{ width: "25px" }} src={comment.user.profilePic} alt="" />
+                                    <span>{comment.user.username}</span>
+                                    <p>{comment.content}</p>
+                                </div>
+                            )
+                        })}
+                    </div>
+
                 </div>
             </div>
             <Modals />

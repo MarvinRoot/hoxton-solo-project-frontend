@@ -7,7 +7,8 @@ export type User = {
     favoriteGenres: favoriteGenres[],
     favoriteSongs: favoriteSongs[],
     favoriteArtists: favoriteArtists[],
-    playlists: Playlist[]
+    playlists: Playlist[],
+    comments: comment[]
 }
 
 export type Genre = {
@@ -22,7 +23,8 @@ export type Song = {
     title: string,
     artistsSongs: any,
     src: string,
-    image: string
+    image: string,
+    comments: comment[]
 }
 
 export type Artist = {
@@ -60,4 +62,12 @@ export type favoriteGenres = {
     id: number,
     userId: number,
     genreId: number
+}
+
+export type comment = {
+    id: number,
+    userId: number,
+    songId: number,
+    content: string
+    user: User
 }
