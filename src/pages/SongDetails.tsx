@@ -4,7 +4,7 @@ import { Header } from "./components/Header"
 import Modals from "./components/modals/Modals"
 import { Sidebar } from "./components/Sidebar"
 import { useStore } from "./components/store"
-import { Artist, Song } from "./components/types"
+import { Artist, favoriteSongs, Song } from "./components/types"
 
 export function SongDetails() {
     const params = useParams()
@@ -34,7 +34,26 @@ export function SongDetails() {
         }).then(resp => resp.json()).then(data => {
             if (data.error) {
                 alert(data.error)
-            } else alert(data.message)
+            } else {
+                updateUser(data.userrr)
+            }
+        })
+    }
+
+    function removeFromFavorites(id: number) {
+        let favSongId = findFavSongId(id)
+        fetch(`http://localhost:3001/favoriteSongs/${favSongId}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: localStorage.token
+            }
+        }).then(resp => resp.json()).then(data => {
+            if (data.error) {
+                alert(data.error)
+            } else {
+                updateUser(data)
+            }
         })
     }
 
@@ -50,6 +69,19 @@ export function SongDetails() {
                 }
             })
     }, [])
+
+    function isFavorite(song: Song) {
+        let favSongsIds = user?.favoriteSongs.map(song => song.songId)
+        if (favSongsIds?.includes(song.id)) {
+            return true
+        } else return false
+    }
+
+    function findFavSongId(id: number) {
+        let favSong = user?.favoriteSongs.find(song => song.songId === id)
+        //@ts-ignore
+        return favSong.id
+    }
 
     // not fetched yet
     if (song === null || artist === null) return <p>Loading...</p>
@@ -68,7 +100,8 @@ export function SongDetails() {
                         <Link to={`/artist/${artist.id}`}><img style={{ borderRadius: "50%", width: "300px" }} src={artist.image} alt="" /></Link>
                     </div>
                     <div style={{ display: "grid", gridAutoFlow: "column", justifyContent: "center", gap: "2rem", marginBottom: "2rem" }}>
-                        <button onClick={() => addToFavorites(user?.id, song.id)}>Add to favorite songs</button>
+
+                        {isFavorite(song) ? <button onClick={() => removeFromFavorites(song.id)}>Remove from favorites</button> : <button onClick={() => addToFavorites(user?.id, song.id)}>Add to favorites</button>}
                         <button onClick={() => updateModal('add-song')}>Add to playlist</button>
                     </div>
                     <h1 style={{ color: "#191919", fontSize: "28px", fontWeight: "700" }}>Similar Music</h1>

@@ -7,7 +7,7 @@ import { Artist } from "./components/types"
 
 export function ArtistDetails() {
     const params = useParams()
-    const { artists, user, artist, updateArtist } = useStore()
+    const { artists, user, artist, updateArtist, updateUser } = useStore()
 
     // function addToFavorites(artist: Artist) {
     //     let newFavArtists = JSON.parse(JSON.stringify(user?.favoriteArtists))
@@ -33,10 +33,28 @@ export function ArtistDetails() {
             if (data.error) {
                 alert(data.error)
             } else {
-                alert(data.message)
+                updateUser(data.userrr)
             }
         })
     }
+
+    function removeFromFavorites(id: number) {
+        let favArtistId = findFavArtistId(id)
+        fetch(`http://localhost:3001/favoriteArtists/${favArtistId}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: localStorage.token
+            }
+        }).then(resp => resp.json()).then(data => {
+            if (data.error) {
+                alert(data.error)
+            } else {
+                updateUser(data)
+            }
+        })
+    }
+
     useEffect(() => {
         fetch(`http://localhost:3001/artists/${params.artistId}`).then(resp => resp.json())
             .then(artistFromServer => {
@@ -44,6 +62,20 @@ export function ArtistDetails() {
                 console.log(artistFromServer);
             })
     }, [params.artistId])
+
+    function isFavorite(artist: Artist) {
+        let favArtistsIds = user?.favoriteArtists.map(artist => artist.artistId)
+        if (favArtistsIds?.includes(artist.id)) {
+            return true
+        } else return false
+    }
+
+    function findFavArtistId(id: number) {
+        let favArtist = user?.favoriteArtists.find(artist => artist.artistId === id)
+        //@ts-ignore
+        return favArtist.id
+    }
+
 
     // not fetched yet
     if (artist === null) return <p>Loading...</p>
@@ -63,7 +95,7 @@ export function ArtistDetails() {
                         <h1 style={{ color: "#f40", fontSize: "55px", fontWeight: "700" }}>{artist.name}</h1>
                     </div>
                     <div style={{ display: "grid", gridAutoFlow: "column", justifyContent: "center", gap: "2rem", marginBottom: "2rem" }}>
-                        <button onClick={() => addToFavorites(user?.id, artist.id)}>Add to favorite artists</button>
+                        {isFavorite(artist) ? <button onClick={() => removeFromFavorites(artist.id)}>Remove from favorites</button> : <button onClick={() => addToFavorites(user?.id, artist.id)}>Add to favorites</button>}
                     </div>
                     <h1 style={{ color: "#191919", fontSize: "28px", fontWeight: "600" }}>Similar Artists</h1>
                     <div className="artist-card-wrapper">
