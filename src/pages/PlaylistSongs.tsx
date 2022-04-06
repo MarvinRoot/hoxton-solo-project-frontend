@@ -3,9 +3,13 @@ import { Link, useParams } from "react-router-dom"
 import { Header } from "./components/Header"
 import { Sidebar } from "./components/Sidebar"
 import { Playlist, Song } from "./components/types"
+import { useNavigate } from "react-router-dom";
+import { useStore } from "./components/store"
 
 export function PlaylistSongs() {
     const params = useParams()
+    const { updateUser } = useStore()
+    const navigate = useNavigate()
     const [playlist, setPlaylist] = useState<Playlist | null>(null)
 
     function handleOnClick(songId: number) {
@@ -20,6 +24,24 @@ export function PlaylistSongs() {
                 alert(data.error)
             } else {
                 setPlaylist(data)
+            }
+        })
+    }
+
+    function deletePlaylist(playlistId: number | undefined) {
+        fetch(`http://localhost:3001/playlists/${playlistId}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: localStorage.token
+            }
+        }).then(resp => resp.json()).then(data => {
+            if (data.error) {
+                alert(data.error)
+            } else {
+                navigate('/profile')
+                setPlaylist(null)
+                updateUser(data.userrr)
             }
         })
     }
@@ -39,12 +61,17 @@ export function PlaylistSongs() {
                 <Sidebar />
                 <div className="song-content-wrapper">
                     <div id="music" className="music-tracks" style={{ marginTop: "2rem" }}>
-                        <h1 style={{ color: "#191919", fontSize: "28px", fontWeight: "700" }}>{playlist?.title}</h1>
+                        <div style={{ display: "grid", gridAutoFlow: "column", alignItems: "center" }}>
+                            <h1 style={{ color: "#191919", fontSize: "28px", fontWeight: "700" }}>{playlist?.title}</h1>
+                            <span onClick={() => deletePlaylist(playlist?.id)} style={{ fontSize: "15px" }}>delete playlist</span>
+                        </div>
                         <div className="music-card-wrapper" >
                             {playlist?.playlistSongs.map((object: any) => {
                                 return (
                                     <div className="music-card" style={{ backgroundColor: "rgb(199, 199, 199)" }} >
                                         <Link key={object.song.id} to={`/song/${object.song.id}`}>
+                                            {/* <iframe width="900px" height="200px" scrolling="no" frameBorder="no" allow="autoplay" src={object.song.src}></iframe> */}
+
                                             <img style={{ width: "300px", paddingBottom: ".5rem", borderRadius: "20px" }} src={object.song.image} alt="" />
                                         </Link>
                                         <div >
