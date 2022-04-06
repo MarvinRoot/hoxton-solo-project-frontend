@@ -479,4 +479,9 @@ p {
   display: grid;
   grid-gap: 2rem;
   grid-auto-flow: row;
+  max-width: fit-content;
+}
+
+.svg-div :hover {
+  cursor: pointer;
 }
