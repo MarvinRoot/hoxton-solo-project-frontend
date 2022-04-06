@@ -6,7 +6,7 @@ import { useStore } from "./components/store"
 import { Song, Artist, Playlist } from "./components/types"
 
 export function ProfilePage() {
-    const { user } = useStore()
+    const { user, updateUser } = useStore()
     const [songs, setSongs] = useState([])
     const [artists, setArtists] = useState([])
     const [playlists, setPlaylists] = useState([])
@@ -44,6 +44,11 @@ export function ProfilePage() {
         }
     }
 
+    function signOut() {
+        localStorage.clear()
+        updateUser(null)
+    }
+
     useEffect(() => {
         let favSongsIds = user?.favoriteSongs.map(object => object.songId)
         let favArtistsIds = user?.favoriteArtists.map(object => object.artistId)
@@ -64,7 +69,12 @@ export function ProfilePage() {
                 <div className="song-content-wrapper">
                     <div style={{ display: "grid", gridTemplateColumns: "500px 1fr", alignItems: "center", width: "1400px" }}>
                         <img style={{ borderRadius: "50%", width: "400px" }} src={user?.profilePic} alt="" />
-                        <h1 style={{ color: "#191919", fontSize: "35px", fontWeight: "700", textTransform: "uppercase" }}>{user?.username}</h1>
+                        <div style={{ display: "grid", gridAutoFlow: "column", maxWidth: "fit-content", gap: "1rem", alignItems: "center" }}>
+                            <h1 style={{ color: "#191919", fontSize: "35px", fontWeight: "700", textTransform: "uppercase" }}>{user?.username}</h1>
+                            <Link to='/sign-in'>
+                                <img onClick={() => signOut()} title="log out" id="log-out" style={{ justifySelf: "start" }} src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABmJLR0QA/wD/AP+gvaeTAAAAqElEQVRYhe2XQQqDMBBFX6Un8GbiSXqQ0nN5pNrFuGgpIqSJmdEvxQ/ZGDLzMkm+CZwS65L4bhvH/6oJSlSta6Y/O4OEiisor8BfA7w8gw3fSXgCnRLAlTwCAKAFbiqABhg+MR4KAIAeGGcQqzwlAsAF8QvAHO2+DCY3opS2WoJdAaqTRwAc4hhKjUhuxfKfkfHegFKAovFyI5ID5G7FUe+DpOQVOCXXBIKASccbvfGwAAAAAElFTkSuQmCC" />
+                            </Link>
+                        </div>
                     </div>
 
                     <h1 style={{ color: "#191919", fontSize: "28px", fontWeight: "700" }}>Favorite Songs</h1>

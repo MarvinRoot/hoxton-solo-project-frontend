@@ -485,3 +485,7 @@ p {
 .svg-div :hover {
   cursor: pointer;
 }
+
+#log-out:hover {
+  cursor: pointer;
+}

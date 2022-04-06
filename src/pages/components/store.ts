@@ -12,7 +12,7 @@ type appState = {
     modal: string
     song: Song | null
     updateUsers: (newUsers: User[]) => void
-    updateUser: (newUser: User) => void
+    updateUser: (newUser: User | null) => void
     updateSearch: (newSearch: string) => void
     updateGenres: (newGenres: Genre[]) => void
     updateSongs: (newSongs: Song[]) => void
