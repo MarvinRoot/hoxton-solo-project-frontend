@@ -6,8 +6,8 @@ export default function NewPlaylistModal() {
 
     function addPlaylist(userId: number | undefined, title: string) {
 
-        let newPlaylists = JSON.parse(JSON.stringify(user?.playlists))
-        newPlaylists.push({ title: name, songs: [] })
+        // let newPlaylists = JSON.parse(JSON.stringify(user?.playlists))
+        // newPlaylists.push({ title: name, songs: [] })
 
         // fetch(`http://localhost:3001/users/${user.id}`, {
         //     method: 'PATCH',
@@ -27,7 +27,7 @@ export default function NewPlaylistModal() {
                 alert(data.error)
             } else {
                 alert(data.message)
-                updateUser(data.user)
+                updateUser(data.userrr)
             }
         })
     }

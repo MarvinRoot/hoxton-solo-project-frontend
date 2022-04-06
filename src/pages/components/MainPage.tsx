@@ -22,7 +22,7 @@ export function MainPage() {
                                     <div className="music-card" >
                                         <img style={{ width: "300px", paddingBottom: ".5rem", borderRadius: "20px" }} src={song.image} alt="" />
                                         <h2 style={{ color: "#191919", fontSize: "18px", fontWeight: "200" }}>{song.title}</h2>
-                                        <h3 style={{ color: "#52525D", fontSize: "13px", fontWeight: "200" }}>{song.artistsSongs[0].name}</h3>
+                                        <h3 style={{ color: "#52525D", fontSize: "13px", fontWeight: "200" }}>{song.artistsSongs[0].artist.name}</h3>
                                     </div>
                                 </Link>
                             )
