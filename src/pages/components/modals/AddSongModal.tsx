@@ -44,19 +44,21 @@ export default function AddSongModal() {
                 <button onClick={() => updateModal('')} className="close-modal">
                     X
                 </button>
-                <h2>Pick a playlist to add the song</h2>
-                <div style={{ display: "grid", gap: ".5rem", width: "100%" }}>
-                    {user?.playlists.map(playlist => {
-                        return (
-                            <div onClick={() => {
-                                handleOnClick(user.id, playlist.id, song?.id)
-                            }} className="playlist-wrapper" key={playlist.id} >
-                                <button style={{ cursor: "pointer", borderRadius: "50px", border: "none", padding: ".5rem 1rem", fontSize: "20px", color: "white", backgroundColor: "#f50" }}> + </button>
-                                <h4>{playlist.title}</h4>
-                            </div>
-                        )
-                    })}
-                    <button onClick={() => updateModal('new-playlist')} style={{ cursor: "pointer", borderRadius: "50px", border: "none", padding: ".5rem 1rem", fontSize: "15px", color: "white", backgroundColor: "#f50" }}>Create playlist</button>
+                <div className='modal-container'>
+                    <h2>Pick a playlist to add the song</h2>
+                    <div style={{ display: "grid", gap: ".5rem", width: "100%" }}>
+                        {user?.playlists.map(playlist => {
+                            return (
+                                <div onClick={() => {
+                                    handleOnClick(user.id, playlist.id, song?.id)
+                                }} className="playlist-wrapper" key={playlist.id} >
+                                    <button style={{ cursor: "pointer", borderRadius: "50px", border: "none", padding: ".5rem 1rem", fontSize: "20px", color: "white", backgroundColor: "#f50" }}> + </button>
+                                    <h4>{playlist.title}</h4>
+                                </div>
+                            )
+                        })}
+                        <button onClick={() => updateModal('new-playlist')} style={{ cursor: "pointer", borderRadius: "50px", border: "none", padding: ".5rem 1rem", fontSize: "15px", color: "white", backgroundColor: "#f50" }}>Create playlist</button>
+                    </div>
                 </div>
             </div>
         </div>

@@ -196,6 +196,7 @@ p {
 
 .header .header-profile img {
   border-radius: 50px;
+  width: 50px;
 }
 
 .header .header-profile span {
@@ -462,7 +463,7 @@ p {
   place-items: center;
 }
 
-.new-user button {
+.new-user #modal-btn {
   background-color: #f50;
   display: grid;
   place-self: center;
@@ -483,6 +484,32 @@ p {
   height: 35px;
   display: grid;
   place-content: center;
+}
+
+.modal-container {
+  border-radius: 2%;
+  width: 330px;
+  height: auto;
+  display: grid;
+  grid-gap: 1rem;
+  box-shadow: -10px 10px 80px -20px #ff623b, 10px -10px 80px -20px #fab164;
+  padding: 1.5rem;
+  align-content: start;
+}
+
+.modal-container input {
+  border: none;
+  border-bottom: solid rgb(202, 200, 200) 1px;
+  padding: 5px 2px;
+  width: 270px;
+}
+
+.modal-container h1 {
+  text-align: center;
+  background: -webkit-linear-gradient(#fe3501, #fe8500);
+
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .playlist-wrapper {
