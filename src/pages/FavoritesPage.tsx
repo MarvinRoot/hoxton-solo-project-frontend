@@ -46,8 +46,8 @@ export function FavoritesPage() {
             if (data.error) {
                 alert(data.error)
             } else {
-                (selectedGenres.length === 0 ? alert('Pick at least one genre!!!') : navigate('/main'))
-                updateUser(data)
+                (selectedGenres.length === 0 ? alert('Pick at least one genre!!!') : updateUser(data))
+                navigate('/main')
             }
         })
     }
