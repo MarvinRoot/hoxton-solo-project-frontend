@@ -67,7 +67,7 @@ export function ProfilePage() {
             <div className="song-content-main-wrapper">
                 <Sidebar />
                 <div className="song-content-wrapper">
-                    <div style={{ display: "grid", gridTemplateColumns: "500px 1fr", alignItems: "center", width: "1400px" }}>
+                    <div style={{ display: "grid", gridTemplateColumns: "500px 1fr", alignItems: "center", width: "100%" }}>
                         <img style={{ borderRadius: "50%", width: "400px" }} src={user?.profilePic} alt="" />
                         <div style={{ display: "grid", gridAutoFlow: "column", maxWidth: "fit-content", gap: "1rem", alignItems: "center" }}>
                             <h1 style={{ color: "#191919", fontSize: "35px", fontWeight: "700", textTransform: "uppercase" }}>{user?.username}</h1>
@@ -84,7 +84,7 @@ export function ProfilePage() {
                                 return (
                                     <Link key={song.id} to={`/song/${song.id}`}>
                                         <div >
-                                            <img style={{ width: "300px", paddingBottom: ".5rem", borderRadius: "20px" }} src={song.image} alt="" />
+                                            <img style={{ width: "200px", paddingBottom: ".5rem", borderRadius: "20px" }} src={song.image} alt="" />
                                             <h2 style={{ color: "#191919", fontSize: "18px", fontWeight: "200" }}>{song.title}</h2>
                                             <h3 style={{ color: "#52525D", fontSize: "13px", fontWeight: "200" }}>{song.artistsSongs[0].name}</h3>
                                         </div>

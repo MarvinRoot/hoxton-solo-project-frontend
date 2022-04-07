@@ -136,8 +136,8 @@ export function SongDetails() {
             <div className="song-content-main-wrapper">
                 <Sidebar />
                 <div className="song-content-wrapper">
-                    <div style={{ display: "grid", gridTemplateColumns: "900px 1fr", alignItems: "center", gap: "2rem" }}>
-                        <iframe width="900px" height="400px" scrolling="no" frameBorder="no" allow="autoplay" src={song.src}></iframe>
+                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", alignItems: "center", gap: "2rem"}}>
+                        <iframe width="fit-content" height="300px" scrolling="no" frameBorder="no" allow="autoplay" src={song.src}></iframe>
                         <Link to={`/artist/${artist.id}`}><img style={{ borderRadius: "50%", width: "300px" }} src={artist.image} alt="" /></Link>
                     </div>
                     <div style={{ display: "grid", gridAutoFlow: "column", justifyContent: "center", gap: "2rem", marginBottom: "2rem" }}>
@@ -180,7 +180,9 @@ export function SongDetails() {
                         <h1>Comments Section</h1>
                         <form onSubmit={(e) => {
                             e.preventDefault()
+                            //@ts-ignore
                             addComment(user?.id, song.id, e.target.comment.value)
+                            //@ts-ignore
                             e.target.reset()
                         }} style={{ display: "grid", gridAutoFlow: "row", gridGap: "1rem" }}>
                             <textarea style={{ width: "500px", padding: "3px" }} rows={3} name="comment" required />
