@@ -113,6 +113,7 @@ p {
   min-height: 100vh;
   min-width: 100vw;
 }
+
 /* grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); */
 
 .header {
@@ -125,10 +126,10 @@ p {
   background-color: white;
 }
 
-.hoxtify-app .main-wrapper {
+.main-wrapper {
   display: grid;
   grid-template-columns: 14rem 1fr;
-  width:100%;
+  width: 100%;
 }
 
 
@@ -279,13 +280,13 @@ p {
 }
 
 .pick-favorites ul {
-  
+
   list-style-type: none;
 }
 
 .pick-favorites li {
-display: inline-block;
-min-width: 200px;
+  display: inline-block;
+  min-width: 200px;
 }
 
 .pick-favorites input[type="checkbox"] {
@@ -381,18 +382,18 @@ min-width: 200px;
 
 .song-details-content {
   /* min-height: 100vh; */
-    display: grid;
-    grid-template-rows: 5rem 1fr;
-    min-height: 100vh;
-    /* min-width: 100vw; */
-    width:100%;
+  display: grid;
+  grid-template-rows: 5rem 1fr;
+  min-height: 100vh;
+  /* min-width: 100vw; */
+  width: 100%;
 }
 
 .song-content-main-wrapper {
   /* display: grid;
   grid-template-columns: 14rem 1fr; */
-    display: grid;
-    grid-template-columns: 14rem 1fr;
+  display: grid;
+  grid-template-columns: 14rem 1fr;
   width: 100%;
 }
 
@@ -512,4 +513,36 @@ min-width: 200px;
 
 #log-out:hover {
   cursor: pointer;
+}
+
+@media screen and (max-width: 770px) {
+  .sidebar {
+    visibility: hidden;
+    position: absolute;
+  }
+
+  .song-content-main-wrapper {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .main-wrapper {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .music-card,
+  .podcasts-card-wrapper,
+  .music-card-wrapper {
+    display: grid;
+    justify-items: center;
+  }
+
+  .main-page-content h1 {
+    text-align: center;
+  }
+
+  .song-details-content {
+    width: 100%;
+  }
 }
