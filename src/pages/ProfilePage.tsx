@@ -7,7 +7,7 @@ import { useStore } from "./components/store"
 import { Song, Artist, Playlist } from "./components/types"
 
 export function ProfilePage() {
-    const { user, updateUser, search, updateModal } = useStore()
+    const { user, updateUser, search, updateModal, updateArtist } = useStore()
     const [songs, setSongs] = useState([])
     const [artists, setArtists] = useState([])
     const [playlists, setPlaylists] = useState([])
@@ -105,7 +105,7 @@ export function ProfilePage() {
                             {
                                 artists.map((artist: Artist) => {
                                     return (
-                                        <Link key={artist.id} to={`/artist/${artist.id}`}>
+                                        <Link onClick={() => updateArtist(artist)} key={artist.id} to={`/artist/${artist.id}`}>
                                             <div style={{ gap: ".4rem" }}>
                                                 <img style={{ width: "200px", paddingBottom: ".5rem", borderRadius: "50%" }} src={artist.image} alt="" />
                                                 <h2 style={{ color: "#191919", fontSize: "20px", fontWeight: "700", textAlign: "center" }}>{artist.name}</h2>

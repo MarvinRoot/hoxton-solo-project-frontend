@@ -64,7 +64,7 @@ export function MainPage() {
                     <div className="music-card-wrapper" >
                         {artists.map(artist => {
                             return (
-                                <Link key={artist.id} to={`/artist/${artist.id}`}>
+                                <Link onClick={() => updateArtist(artist)} key={artist.id} to={`/artist/${artist.id}`}>
                                     <div className="music-card" >
                                         <img style={{ width: "200px", paddingBottom: ".5rem", borderRadius: "50%" }} src={artist.image} alt="" />
                                         <h2 style={{ color: "#191919", fontSize: "20px", fontWeight: "700", textAlign: "center" }}>{artist.name}</h2>
