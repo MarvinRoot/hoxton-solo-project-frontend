@@ -7,7 +7,7 @@ import { useStore } from "./components/store"
 import { Song, Artist, Playlist } from "./components/types"
 
 export function ProfilePage() {
-    const { user, updateUser, search, updateModal, updateArtist } = useStore()
+    const { user, updateUser, search, updateModal, updateArtist, updateSearch } = useStore()
     const [songs, setSongs] = useState([])
     const [artists, setArtists] = useState([])
     const [playlists, setPlaylists] = useState([])
@@ -141,7 +141,7 @@ export function ProfilePage() {
                     <section className="artist-card-wrapper">
                         {songs.filter((song: Song) => song.title.toUpperCase().includes(search.toUpperCase())).map((song: Song) => {
                             return (
-                                <Link key={song.id} to={`/song/${song.id}`}>
+                                <Link onClick={() => updateSearch('')} key={song.id} to={`/song/${song.id}`}>
                                     <div className="music-card" style={{}} >
                                         <img style={{ width: "250px", paddingBottom: ".5rem", borderRadius: "20px" }} src={song.image} alt="" />
                                         <h2 style={{ color: "#191919", fontSize: "18px", fontWeight: "200" }}>{song.title}</h2>
@@ -152,7 +152,7 @@ export function ProfilePage() {
                         })}
                         {artists.filter((artist: Artist) => artist.name.toUpperCase().includes(search.toUpperCase())).map((artist: Artist) => {
                             return (
-                                <Link key={artist.id} to={`/artist/${artist.id}`}>
+                                <Link onClick={() => updateSearch('')} key={artist.id} to={`/artist/${artist.id}`}>
                                     <div className="music-card" style={{ width: "200px" }} >
                                         <img style={{ width: "200px", paddingBottom: ".5rem", borderRadius: "50%" }} src={artist.image} alt="" />
                                         <h2 style={{ color: "#191919", fontSize: "20px", fontWeight: "700", textAlign: "center" }}>{artist.name}</h2>
