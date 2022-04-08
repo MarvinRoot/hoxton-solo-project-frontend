@@ -2,7 +2,7 @@ import { Link } from "react-router-dom"
 import { useStore } from "./store"
 
 export function MainPage() {
-    const { songs, artists, user, search } = useStore()
+    const { songs, artists, user, search, updateSearch, updateArtist } = useStore()
     // not fetched yet
     if (user === null) return <p>Loading...</p>
 
@@ -79,7 +79,7 @@ export function MainPage() {
             <section className="artist-card-wrapper">
                 {songs.filter(song => song.title.toUpperCase().includes(search.toUpperCase())).map(song => {
                     return (
-                        <Link key={song.id} to={`/song/${song.id}`}>
+                        <Link onClick={() => updateSearch('')} key={song.id} to={`/song/${song.id}`}>
                             <div className="music-card" style={{}} >
                                 <img style={{ width: "250px", paddingBottom: ".5rem", borderRadius: "20px" }} src={song.image} alt="" />
                                 <h2 style={{ color: "#191919", fontSize: "18px", fontWeight: "200" }}>{song.title}</h2>
@@ -90,7 +90,10 @@ export function MainPage() {
                 })}
                 {artists.filter(artist => artist.name.toUpperCase().includes(search.toUpperCase())).map(artist => {
                     return (
-                        <Link key={artist.id} to={`/artist/${artist.id}`}>
+                        <Link onClick={() => {
+                            updateSearch('')
+                            updateArtist(artist)
+                        }} key={artist.id} to={`/artist/${artist.id}`}>
                             <div className="music-card" style={{ width: "200px" }} >
                                 <img style={{ width: "200px", paddingBottom: ".5rem", borderRadius: "50%" }} src={artist.image} alt="" />
                                 <h2 style={{ color: "#191919", fontSize: "20px", fontWeight: "700", textAlign: "center" }}>{artist.name}</h2>

@@ -31,7 +31,8 @@ export type Artist = {
     id: number,
     name: string,
     genreId: number,
-    image: string
+    image: string,
+    artistsSongs: any
 }
 
 export type Playlist = {

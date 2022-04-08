@@ -7,7 +7,7 @@ import { Artist } from "./components/types"
 
 export function ArtistDetails() {
     const params = useParams()
-    const { artists, user, artist, updateArtist, updateUser, search } = useStore()
+    const { artists, user, artist, updateArtist, updateUser, search, updateSearch } = useStore()
 
     // function addToFavorites(artist: Artist) {
     //     let newFavArtists = JSON.parse(JSON.stringify(user?.favoriteArtists))
@@ -112,6 +112,21 @@ export function ArtistDetails() {
                                     )
                                 })}
                         </div>
+
+                        <h1 style={{ color: "#191919", fontSize: "28px", fontWeight: "700" }}>Artist's Music</h1>
+                        <div className="music-card-wrapper" >
+                            {artist.artistsSongs.map((object: any) => {
+                                return (
+                                    <Link key={object.id} to={`/song/${object.song.id}`}>
+                                        <div className="music-card" >
+                                            <img style={{ width: "300px", paddingBottom: ".5rem", borderRadius: "20px" }} src={object.song.image} alt="" />
+                                            <h2 style={{ color: "#191919", fontSize: "18px", fontWeight: "200" }}>{object.song.title}</h2>
+                                            <h3 style={{ color: "#52525D", fontSize: "13px", fontWeight: "200" }}>{artist.name}</h3>
+                                        </div>
+                                    </Link>
+                                )
+                            })}
+                        </div>
                     </div>
                 </div>
             </section>
@@ -123,7 +138,7 @@ export function ArtistDetails() {
                     <div className="artist-card-wrapper">
                         {artists.filter(artist => artist.name.toUpperCase().includes(search.toUpperCase())).map(artist => {
                             return (
-                                <Link key={artist.id} to={`/artist/${artist.id}`}>
+                                <Link onClick={() => updateSearch('')} key={artist.id} to={`/artist/${artist.id}`}>
                                     <div className="music-card" style={{ width: "200px" }} >
                                         <img style={{ width: "200px", paddingBottom: ".5rem", borderRadius: "50%" }} src={artist.image} alt="" />
                                         <h2 style={{ color: "#191919", fontSize: "20px", fontWeight: "700", textAlign: "center" }}>{artist.name}</h2>

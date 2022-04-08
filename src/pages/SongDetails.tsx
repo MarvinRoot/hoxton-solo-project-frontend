@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { Link, useParams } from "react-router-dom"
+import { Link, useParams, useNavigate } from "react-router-dom"
 import { Header } from "./components/Header"
 import Modals from "./components/modals/Modals"
 import { Sidebar } from "./components/Sidebar"
@@ -7,8 +7,9 @@ import { useStore } from "./components/store"
 import { Artist, favoriteSongs, Song } from "./components/types"
 
 export function SongDetails() {
+    const navigate = useNavigate()
     const params = useParams()
-    const { artists, user, updateUser, artist, updateArtist, updateModal, songs, song, updateSong, search } = useStore()
+    const { artists, user, updateUser, artist, updateArtist, updateModal, songs, song, updateSong, search, updateSearch } = useStore()
 
     // function addToFavorites(song: Song) {
 
@@ -104,7 +105,7 @@ export function SongDetails() {
                     updateArtist(data.artistsSongs[0])
                 }
             })
-    }, [])
+    }, [params.songId])
 
     function isFavorite(song: Song) {
         let favSongsIds = user?.favoriteSongs.map(song => song.songId)
@@ -139,8 +140,9 @@ export function SongDetails() {
                     <div className="song-content-wrapper">
                         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", alignItems: "center", gap: "2rem" }}>
                             <iframe width="fit-content" height="300px" scrolling="no" frameBorder="no" allow="autoplay" src={song.src}></iframe>
-                            <Link to={`/artist/${artist.id}`}><img style={{ borderRadius: "50%", width: "300px" }} src={artist.image} alt="" /></Link>
+                            <Link onClick={() => updateArtist(artisst)} to={`/artist/${artist.id}`}><img style={{ borderRadius: "50%", width: "300px" }} src={artist.image} alt="" /></Link>
                         </div>
+                        <h1 style={{ textAlign: "center", color: "#191919" }}>{song.artistsSongs[0].name} - {song.title}</h1>
                         <div style={{ display: "grid", gridAutoFlow: "column", justifyContent: "center", gap: "2rem", marginBottom: "2rem" }}>
 
                             {isFavorite(song) ? <button onClick={() => removeFromFavorites(song.id)}>Remove from favorites</button> : <button onClick={() => addToFavorites(user?.id, song.id)}>Add to favorites</button>}
@@ -155,7 +157,7 @@ export function SongDetails() {
                                             <div className="music-card" >
                                                 <img style={{ width: "300px", paddingBottom: ".5rem", borderRadius: "20px" }} src={songg.image} alt="" />
                                                 <h2 style={{ color: "#191919", fontSize: "18px", fontWeight: "200" }}>{songg.title}</h2>
-                                                <h3 style={{ color: "#52525D", fontSize: "13px", fontWeight: "200" }}>{artist.name}</h3>
+                                                <h3 style={{ color: "#52525D", fontSize: "13px", fontWeight: "200" }}>{songg.artistsSongs[0].artist.name}</h3>
                                             </div>
                                         </Link>
                                     )
@@ -168,7 +170,7 @@ export function SongDetails() {
                             {artists.filter(artisst => artist.genreId === artisst.genreId && artisst.id !== artist.id)
                                 .map(artisst => {
                                     return (
-                                        <Link key={artisst.id} to={`/artist/${artisst.id}`}>
+                                        <Link onClick={() => updateArtist(artisst)} key={artisst.id} to={`/artist/${artisst.id}`}>
                                             <div >
                                                 <img style={{ width: "200px", paddingBottom: ".5rem", borderRadius: "50%" }} src={artisst.image} alt="" />
                                                 <h2 style={{ color: "#191919", fontSize: "20px", fontWeight: "700", textAlign: "center" }}>{artisst.name}</h2>
@@ -222,7 +224,7 @@ export function SongDetails() {
                         {
                             songs.filter(song => song.title.toUpperCase().includes(search.toUpperCase())).map(song => {
                                 return (
-                                    <Link key={song.id} to={`/song/${song.id}`}>
+                                    <Link onClick={() => updateSearch('')} key={song.id} to={`/song/${song.id}`}>
                                         <div className="music-card" style={{}} >
                                             <img style={{ width: "250px", paddingBottom: ".5rem", borderRadius: "20px" }} src={song.image} alt="" />
                                             <h2 style={{ color: "#191919", fontSize: "18px", fontWeight: "200" }}>{song.title}</h2>
